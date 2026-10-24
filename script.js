@@ -91,7 +91,34 @@ function initModal() {
   });
 }
 
+function initTheme() {
+  const root = document.documentElement;
+  const button = document.getElementById('theme-toggle');
+
+  // Денна: 07:00-20:59
+  // Нічна: 21:00-06:59
+  const autoTheme = () => {
+    const h = new Date().getHours();
+    return h >= 7 && h < 21 ? 'light' : 'dark';
+  };
+  const apply = (theme) => {
+    root.dataset.theme = theme;
+    button.textContent = theme === 'dark' ? 'Денна тема' : 'Нічна тема';
+  };
+
+  let lastAuto = autoTheme();
+  apply(lastAuto);
+  button.addEventListener('click', () => apply(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+
+  // Автоперемикання 
+  setInterval(() => {
+    const current = autoTheme();
+    if (current !== lastAuto) { lastAuto = current; apply(current); }
+  }, 60000);
+}
+
 saveSystemInfo();
 renderStorageInfo();
 loadReviews();
 initModal();
+initTheme();
