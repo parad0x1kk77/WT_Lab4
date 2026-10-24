@@ -1,3 +1,31 @@
+const VARIANT = 2;
+
+async function loadReviews() {
+  const box = document.getElementById('reviews-list');
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts/' + VARIANT + '/comments');
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    const comments = await response.json();
+    box.textContent = '';
+    comments.forEach(c => {
+      const article = document.createElement('article');
+      article.className = 'review';
+      const h = document.createElement('h3');
+      h.textContent = c.name;
+      const mail = document.createElement('p');
+      mail.className = 'review-email';
+      mail.textContent = c.email;
+      const body = document.createElement('p');
+      body.textContent = c.body;
+      article.append(h, mail, body);
+      box.appendChild(article);
+    });
+  } catch (error) {
+    box.textContent = 'Не вдалося завантажити відгуки: ' + error.message;
+  }
+}
+
+
 // Зберігання інформації про ОС і браузер 
 function saveSystemInfo() {
   const n = navigator;
@@ -36,3 +64,4 @@ function renderStorageInfo() {
 
 saveSystemInfo();
 renderStorageInfo();
+loadReviews();
