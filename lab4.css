@@ -6,3 +6,10 @@ footer.site-footer { text-align: center; }
 .review h3 { margin: 0 0 2px; font-size: 1rem; }
 .review .review-email { margin: 0 0 6px; font-size: 0.85rem; opacity: 0.8; }
 .review p { margin: 0; }
+
+#contact-modal { width: min(480px, 92vw); padding: 20px; border: 2px solid #1100ca; border-radius: 10px; }
+#contact-modal::backdrop { background: rgba(0,0,0,0.6); }
+#contact-form { display: grid; gap: 12px; }
+#contact-form label { display: grid; gap: 4px; }
+#contact-form input, #contact-form textarea { padding: 8px; font: inherit; }
+.modal-actions { display: flex; gap: 10px; }

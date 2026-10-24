@@ -12,6 +12,24 @@
   }
     </style>
 </head>
+
+
+<dialog id="contact-modal">
+    <h2>Зворотний зв'язок</h2>
+    <form id="contact-form" action="https://formspree.io/f/xljjdgjj" method="POST">
+        <label>Ім’я <input type="text" name="name" required></label>
+        <label>Email <input type="email" name="email" required></label>
+        <label>Номер телефону <input type="tel" name="phone" pattern="\+?[0-9\- ]{7,20}" required></label>
+        <label>Повідомлення <textarea name="message" rows="4" required></textarea></label>
+        <p id="form-status" role="status"></p>
+        <div class="modal-actions">
+            <button type="submit">Надіслати</button>
+            <button type="button" id="modal-close">Закрити</button>
+        </div>
+    </form>
+</dialog>
+
+
 <body>
 
     <div class="resume-container">

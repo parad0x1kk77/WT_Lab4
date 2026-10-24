@@ -62,6 +62,36 @@ function renderStorageInfo() {
   }
 }
 
+const MODAL_DELAY_MS = 60000;   
+
+function initModal() {
+  const modal = document.getElementById('contact-modal');
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+
+  setTimeout(() => { if (!modal.open) modal.showModal(); }, MODAL_DELAY_MS);
+  document.getElementById('modal-close').addEventListener('click', () => modal.close());
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Надсилання…';
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      status.textContent = 'Дякуємо! Повідомлення надіслано.';
+      form.reset();
+      setTimeout(() => modal.close(), 2000);
+    } catch (error) {
+      status.textContent = 'Помилка надсилання: ' + error.message;
+    }
+  });
+}
+
 saveSystemInfo();
 renderStorageInfo();
 loadReviews();
+initModal();
